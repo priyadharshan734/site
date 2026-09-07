@@ -1,0 +1,123 @@
+/* =========================================================================
+   ANIMATIONS
+   Hand-authored, not a library. Every keyframe below is referenced by a
+   specific, named purpose in style.css or main.js — nothing decorative
+   without a job to do.
+   ========================================================================= */
+
+/* ---- Hero blueprint line-art: each stroke draws itself in sequence ----
+   JS sets --len on each path/line to its own getTotalLength() at runtime,
+   then adds .is-drawing which animates dashoffset from --len to 0. */
+.hero-blueprint [data-draw]{
+  stroke-dasharray: var(--len, 1000);
+  stroke-dashoffset: var(--len, 1000);
+}
+.hero-blueprint [data-draw].is-drawing{
+  animation: drawLine 1.8s var(--ease) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes drawLine{
+  to{ stroke-dashoffset: 0; }
+}
+
+/* small blueprint tag circles that "stamp" in after lines finish */
+.hero-blueprint .fill-tag{
+  opacity: 0;
+  transform-origin: center;
+  transform: scale(0.4);
+}
+.hero-blueprint .fill-tag.is-stamped{
+  animation: stampTag .5s var(--ease) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes stampTag{
+  0%{ opacity:0; transform: scale(0.4); }
+  60%{ opacity:0.7; transform: scale(1.15); }
+  100%{ opacity:0.55; transform: scale(1); }
+}
+
+/* ---- Hero copy: staggered rise, choreographed after the blueprint draws ---- */
+.hero-stagger > *{
+  opacity:0; transform: translateY(18px);
+  animation: riseIn .9s var(--ease) forwards;
+}
+.hero-stagger > *:nth-child(1){ animation-delay: 1.5s; }
+.hero-stagger > *:nth-child(2){ animation-delay: 1.7s; }
+.hero-stagger > *:nth-child(3){ animation-delay: 1.9s; }
+.hero-stagger > *:nth-child(4){ animation-delay: 2.1s; }
+@keyframes riseIn{
+  to{ opacity:1; transform:none; }
+}
+
+/* ---- Scroll cue pulse ---- */
+@keyframes scrollpulse{
+  0%{ transform: scaleY(0); transform-origin: top; opacity:0; }
+  40%{ transform: scaleY(1); transform-origin: top; opacity:1; }
+  60%{ transform: scaleY(1); transform-origin: bottom; opacity:1; }
+  100%{ transform: scaleY(0); transform-origin: bottom; opacity:0; }
+}
+
+/* ---- Stat count-up: JS drives the number; this just settles the glyph ---- */
+.stat-num.is-counting{ animation: numSettle .4s var(--ease); }
+@keyframes numSettle{
+  from{ opacity:0.4; transform: translateY(4px); }
+  to{ opacity:1; transform:none; }
+}
+
+/* ---- Accordion chevron / panel handled inline via max-height (style.css);
+   this adds a subtle content fade so text doesn't just "appear" ---- */
+.accordion-panel-inner{
+  opacity:0; transition: opacity .35s var(--ease) .05s;
+}
+.accordion-item.is-open .accordion-panel-inner{ opacity:1; }
+
+/* ---- Nav mobile toggle → X ---- */
+.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- Button "cut corner" press feel on click ---- */
+.btn:active{ transform: scale(0.97) translateY(0); }
+
+/* ---- Form submit spinner (mono square, ticks like a stopwatch) ---- */
+.btn-spinner{
+  width: 11px; height: 11px; border: 2px solid currentColor;
+  border-top-color: transparent; display:inline-block;
+  animation: tick 0.8s steps(8) infinite;
+}
+@keyframes tick{ to{ transform: rotate(360deg); } }
+
+/* ---- Toast for form confirmation ---- */
+.toast{
+  position: fixed; right: 1.4rem; bottom: 1.4rem; z-index: 999;
+  background: var(--ink); color: var(--paper); padding: 1rem 1.3rem;
+  border-left: 3px solid var(--signal); font-family: var(--font-mono); font-size:0.85rem;
+  transform: translateX(120%); transition: transform .45s var(--ease);
+  max-width: 320px;
+}
+.toast.is-shown{ transform: translateX(0); }
+
+/* ---- Gallery filter transition: fade+lift out/in when JS re-sorts ---- */
+.project-card{
+  transition: opacity .35s var(--ease), transform .35s var(--ease), display .35s allow-discrete;
+}
+.project-card.is-hidden{ opacity:0; transform: translateY(10px) scale(0.98); }
+
+/* ---- Marquee for the "trusted by" / material strip, pure CSS ---- */
+.marquee{ overflow:hidden; position:relative; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.marquee-track{
+  display:flex; width: max-content; gap: 4rem;
+  animation: scrollX 34s linear infinite;
+}
+.marquee:hover .marquee-track{ animation-play-state: paused; }
+@keyframes scrollX{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hero-photo{ opacity: 0.62 !important; transform:none !important; }
+  .hero-blueprint [data-draw], .hero-blueprint .fill-tag{ animation:none !important; stroke-dashoffset:0 !important; opacity:0 !important; }
+  .hero-stagger > *{ animation:none !important; opacity:1 !important; transform:none !important; }
+  .marquee-track{ animation:none !important; }
+}

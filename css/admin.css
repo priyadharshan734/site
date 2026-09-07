@@ -1,0 +1,51 @@
+/* Admin back-office styles — same tokens as the public site (style.css must
+   be loaded first), but denser and table-first since this audience is
+   staff, not prospective clients. */
+
+.admin-body{ background: var(--paper-2); min-height:100vh; }
+
+.admin-topbar{
+  background: var(--ink); color: var(--paper);
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0.9rem var(--gutter);
+}
+.admin-topbar .brand{ color: var(--paper); font-size:1.15rem; }
+.admin-topbar nav{ display:flex; gap:1.6rem; align-items:center; }
+.admin-topbar a{ text-decoration:none; font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; color: rgba(237,234,226,0.8); }
+.admin-topbar a:hover, .admin-topbar a.is-active{ color: var(--signal); }
+.admin-topbar .logout{ border:1px solid var(--line-dark); padding:0.5em 0.9em; border-radius:var(--radius); }
+
+.admin-shell{ padding: 2.5rem var(--gutter) 4rem; max-width:1280px; margin:0 auto; }
+
+.admin-card{ background:var(--paper); border:1px solid var(--line); padding:1.6rem; border-radius:var(--radius); }
+.admin-grid-cards{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-bottom:2.2rem; }
+.admin-metric .num{ font-family:var(--font-display); font-size:2.2rem; color:var(--blueprint); display:block; }
+.admin-metric .label{ font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--concrete-2); }
+@media (max-width:900px){ .admin-grid-cards{ grid-template-columns:repeat(2,1fr); } }
+
+.admin-table{ width:100%; border-collapse:collapse; font-size:0.92rem; background:var(--paper); }
+.admin-table th{
+  text-align:left; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--concrete-2); border-bottom:1px solid var(--line); padding:0.8em 0.9em; background:var(--paper-2);
+}
+.admin-table td{ padding:0.85em 0.9em; border-bottom:1px solid var(--line); vertical-align:top; }
+.admin-table tr:hover td{ background: rgba(46,75,107,0.04); }
+
+.pill{ font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; padding:0.25em 0.6em; border-radius:20px; display:inline-block; }
+.pill-new{ background:rgba(226,163,59,0.18); color:#8a5c14; }
+.pill-contacted{ background:rgba(76,122,90,0.18); color:#2f5c3d; }
+.pill-archived{ background:rgba(139,135,126,0.18); color:var(--concrete-2); }
+
+.admin-toolbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem; gap:1rem; flex-wrap:wrap; }
+.admin-toolbar h1{ font-size:1.6rem; margin:0; }
+
+.status-select{ font-family:var(--font-mono); font-size:0.75rem; padding:0.35em 0.6em; border:1px solid var(--line); border-radius:var(--radius); background:var(--paper); }
+
+.login-wrap{ min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--ink); padding:1.5rem; }
+.login-card{ background:var(--paper); padding:2.6rem; width:100%; max-width:400px; border-radius:var(--radius); }
+.login-card .brand{ margin-bottom:1.6rem; display:block; }
+
+.empty-state{ padding:3rem 1rem; text-align:center; color:var(--concrete-2); font-family:var(--font-mono); font-size:0.85rem; }
+
+.icon-btn{ background:none; border:none; cursor:pointer; color:#a4402f; font-family:var(--font-mono); font-size:0.75rem; text-transform:uppercase; }
+.icon-btn:hover{ text-decoration:underline; }
